@@ -55,7 +55,6 @@ def parse_hmmersearch(hmm_output):
             item.append(cord_end)
             item.append(ievalue)
             item.append(score)
-
             #Use locus_Tag+cluster+protein_id
             key_header = (tmp_target[0],tmp_target[1])                                    
             if key_header in dictionary:
@@ -90,13 +89,17 @@ def find_products(dictionary):
                 domainlist.append(array_items)
                 if "Condensation" in array_items[1]:                    
                     c_domain.append(array_items)
-            domain = check_overlap(domainlist)
-            #print key
+            domain = check_overlap(domainlist)            
+            """
             #for i in domain:
                 ##See how the gene cluster assembly line purify
                 #print i
+            """
+            #Merge the two lists of lists
+            domain.extend(c_domain)
             #check overlaps between condensation domains
-            domain1 = check_domain_nrps(domain,c_domain)
+            domain1 = check_overlap(domain)
+
             e = "Epimerization" 
             found += found_in_list(domain1,e)
             x = "X"
@@ -122,15 +125,13 @@ def found_in_list(domain1,search):
 
 def check_overlap(pfd_matrix):
     """Check if domains overlap for a certain overlap_cutoff.
-     If so, remove the domain(s) with the lower score."""
-    
+     If so, remove the domain(s) with the lower score."""    
     overlap_cutoff = 0.1
     delete_list = []
     for i in range(len(pfd_matrix)-1):
         for j in range(i+1, len(pfd_matrix)):
             row1 = pfd_matrix[i]
-            row2 = pfd_matrix[j]
-            
+            row2 = pfd_matrix[j]            
             #check if we are the same CDS
             if row1[0] == row2[0]:
                 #check if there is overlap between the domains
@@ -149,8 +150,6 @@ def check_overlap(pfd_matrix):
             pfd_matrix.remove(lst)
         except ValueError:
             pass
-        
- 
     return pfd_matrix  
 
 def no_overlap(locA1, locA2, locB1, locB2):    
@@ -179,63 +178,11 @@ def overlap(locA1, locA2, locB1, locB2):
     sum_len = (locA2 - locA1) + (locB2 - locB1)
     return sum_len - total_region
 
-def check_domain_nrps(domain_a, domain_b):
-    domain_list = []
-    #lista = [(3015, 3701), (4011, 5890)]
-    #listb = [(1,2), (100,200), (4500,6000)]
-    #result = check_overlap_coordinates(lista, listb)
-    #print result
-
-    for a in domain_a:
-        lista = [tuple([a[2],a[3]])]
-        for b in domain_b:
-            listb = [tuple([b[2],b[3]])]
-            result = check_overlap_coordinates(lista, listb)
-            #If there is overlapping
-            if result is not False:
-                #If first coordinate has greater score and are in same protein/gene
-                if a[-1] > b[-1] and a[0] == b[0]:                    
-                    domain_list.append(a)
-                    #print a
-                    #break
-                #elif a[-1] < b[-1] and a[0] == b[0]:
-                    #domain_list.append(b)
-
-          
-    return domain_list
-
-def check_overlap_coordinates(lista, listb):
-    a = 0
-    b = 0
-    found = False
-    while a < len(lista) and b < len(listb):
-        result = check( lista[a] , listb[b] )
-        if result < 0:
-            a += 1
-            continue
-        if result > 0:
-            b += 1
-            continue
-        # we found overlapping intervals
-        found = True
-        return (found, a, lista[a], b, listb[b] )
-    return found
-
-def check( (astart, aend) , (bstart, bend) ):
-    if aend < bstart:
-        return -1
-    if bend < astart:
-        return 1
-    return 0
-
-def remove_duplicates(l):
-    return list(set(l))
-
 def extract_sequence(putative_glycopeptides, fasta_file):    
     header = []
     for item in putative_glycopeptides:
         header = ">"+item[0]+"|"+item[1]
-        #header.append(tmp)    
+        print header
         with open(fasta_file, 'r+') as f:
             while True:
                 line = f.readline().rstrip()
@@ -257,7 +204,6 @@ def generateFastaFile(header,sequence):
         return True
 
 if __name__ == "__main__":
-    #python search_glycopeptides.py Glycopeptides/temp.out x    
     "Run this file from here as a script"
     #Check if parameters are provided; if not, exit with explanation
     start_time = time.time() #Global variable
