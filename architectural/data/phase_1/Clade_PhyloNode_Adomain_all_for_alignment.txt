@@ -1,0 +1,10 @@
+index	clade_index	PhyloNode_index	function_annotation	clade_index_ori
+1	H	8	Hpg	I
+2	D	67	Dpg	II
+3	Y	111	Tyr	III
+4	B	130	Bht	IV
+5	N	181	Asn	V
+6	L	200	Leu	VI
+7	W	300	Trp	VII
+8	A	350	Ala	VIII
+9	E	400	Glu	IX
