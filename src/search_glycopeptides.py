@@ -1,9 +1,11 @@
 
 #!/usr/bin/env python
-"""
-Bioinformatics Group Wageningen UR
-Author: Diego Montiel 
-"""
+
+#-- Copyright (c) 2017 Diego Montiel
+#-- Bioinformatics Group @ Wageningen University  --
+#--
+#--Script that Predicts if a Gene Cluster is similar to Glycopeptide
+
 import sys
 import time
 import collections
@@ -20,7 +22,7 @@ def parse_hmmersearch(hmm_output):
             score = float(line[13])      
             cord_start = int(line[19])      
             cord_end = int(line[20])#evelope
-            locus = tmp_target[-1]            
+            locus = tmp_target[2]            
             item.append(locus)            
             item.append(domain)
             item.append(cord_start)
@@ -184,8 +186,8 @@ if __name__ == "__main__":
         sys.exit()
     else:
         #python search_glycopeptides.py data/nrpspksdomains.hmm nrps/hmmsearch3_cutoff.out data/reduce_gene_clusters_nrps.fasta
-        #Read command-line parameters
 
+        #Read command-line parameters
         hmm_output = sys.argv[1]        
         fasta_file = sys.argv[2]        
         out_fasta_file = sys.argv[3]        

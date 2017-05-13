@@ -1,12 +1,11 @@
 #!/usr/bin/env python
-"""
-Author: Diego Fernando Montiel Gonzalez
-File number: 880505580110
-Bioinformatics Group, Wageningen University
-Get gene precursors. Retrieve Genbank NCBI files 
-from  from an external ACCESSION number list
-and generate a multi-fasta.
-"""
+
+#-- Copyright (c) 2017 Diego Montiel
+#-- Bioinformatics Group @ Wageningen University  --
+#--
+#-- Script that Get gene precursors. 
+#-- Retrieve Genbank NCBI files from an external ACCESSION number list file 
+#---and generate a multi-fasta.
 
 from Bio import Entrez
 from sys import argv

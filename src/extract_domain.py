@@ -3,7 +3,8 @@
 ## Wageningen University
 ## Bioinformatics Group
 
-###Script that extract XX domains out of protein sequences and get the score of the predicted domains
+## Script that extract XX domains out of protein sequences and get the score 
+## of the predicted domains
 
 #Libraries to import
 import sys
@@ -12,7 +13,6 @@ import string
 import subprocess
 import argparse
 import re
-sys.path.append('/Users/Xiaowen/Documents/Pseudomonas_genomes_BGCs/domain_extraction_script/Bio')
 
 #----------------------------------
 #-- some simple but basic functions
@@ -200,7 +200,7 @@ def write_fasta_hmm2(fastadict, outfile, hmmer_results, domain_ab):
                 domain_sequence = cds_sequence[(int(hit[0])-1):int(hit[1])] # since the string are index from zero, so we need to get the first aa of the domain by int(hit[0])-1
                 #loc = '-'.join(hit)
                 #loc = '_'
-                domain_name_sort.append("%s%s" % (cds_name, domain_ab))
+                domain_name_sort.append("%s_%s" % (cds_name, domain_ab))
                 domain_sequence_sort.append(domain_sequence)
             domain_name_sorted = sort_XonY(domain_name_sort, hit_start_sort, r = False)
             domain_sequence_sorted = sort_XonY(domain_sequence_sort, hit_start_sort, r = False)

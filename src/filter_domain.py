@@ -64,19 +64,19 @@ if __name__ == "__main__":
     "Run this file from here as a script"
     #Check if parameters are provided; if not, exit with explanation
     if len(sys.argv) <= 3:
-        print """Please provide as parameters a HMM file, a FASTA file and an output file"""
+        print """Please provide as parameters a two domains sequences and an output file"""
         sys.exit()
     #Read command-line parameters
     a_domain_fasta = sys.argv[1]
     t_domain_fasta = sys.argv[2]
     output_file1 = sys.argv[3]
-    output_file2 = sys.argv[4]
+    #output_file2 = sys.argv[4]
 
     a_domain = parse_fasta(a_domain_fasta)
     t_domain = parse_fasta(t_domain_fasta)
     
     get_gene_intersection(a_domain,t_domain, output_file1)
-    get_gene_diff(a_domain,t_domain, output_file2)
+    #get_gene_diff(a_domain,t_domain, output_file2)
     
     
     

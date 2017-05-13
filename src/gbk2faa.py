@@ -37,35 +37,32 @@ def get_CDS_fasta(gbk_file_dir, faa_filename):
                 #print seq_feature
                 
                 if seq_feature.type == "CDS":
-                    
-                    if "translation" in seq_feature.qualifiers:
-                    
+          
+                    if "translation" in seq_feature.qualifiers:  
                         assert len(seq_feature.qualifiers['translation']) == 1
-                        
                         seq_qualifiers = seq_feature.qualifiers.keys()  
-                        
+                            
                         if "protein_id" in seq_qualifiers:
                             protein_id = seq_feature.qualifiers['protein_id'][0]
                         else:
                             protein_id = seq_feature.qualifiers['locus_tag'][0]
 
                         if "gene" in seq_qualifiers:
-                            gene = "|"+seq_feature.qualifiers['gene'][0]+"_"
+                            gene = seq_feature.qualifiers['gene'][0]
                         else:
                             #gene = "?"
-                            gene = "|_"
+                            gene = ""
                             #gene = seq_feature.qualifiers['product'][0].replace(" ","_")      
-                            
-                            #gbk.split(".")[0],
-                        output_handel.write(">%s|%s|%s%s\n%s\n" % (                                                        
-                                seq_record.name,                                                        
-                                antibiotic,                            
-                                #seq_record.id,                            
-                                protein_id,
                                 
+                            #gbk.split(".")[0],
+                        output_handel.write(">%s|%s|%s|%s\n%s\n" % (
+                                    
+                                seq_record.name,
+                                antibiotic,                          
+                                protein_id,                                                            
                                 gene,
                                 seq_feature.qualifiers['translation'][0]))
-                    
+                        
 
     output_handel.close()
     

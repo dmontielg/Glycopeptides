@@ -1,5 +1,10 @@
 #!/usr/bin/env python
-#Libraries to import
+
+#-- Copyright (c) 2017 Diego Montiel
+#-- Bioinformatics Group @ Wageningen University  --
+#--
+#-- Script for reducing header in a fasta file 
+
 
 import sys
 

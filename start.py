@@ -1,19 +1,14 @@
 #!/usr/bin/env python
 
-## Copyright (c) 2017 Diego Montiel
-## Wageningen University
-## Bioinformatics Group
-
-###Script for prediction of Glycopeptide Gene Clusters 
-
 from sys import path
-path.append("../src")
+path.append("src")
 
 import os
 import os.path
 import sys
 import subprocess
 import time
+
 import search_glycopeptides as sg
 import gbk2faa
 import extract_domain
@@ -50,7 +45,7 @@ def menu():
             print("\n Predict putative GBGC")                         
                         
             hmmversion = "v3"
-            hmmfile = "../data/hmm/nrpspksdomains.hmm"
+            hmmfile = "data/hmm/nrpspksdomains.hmm"
             cut_off = "0.01"
             
             fastafile = raw_input("\n Please provide sequence query for domain profile: ")
@@ -88,7 +83,7 @@ def menu():
             hmmversion = "v2"
             cut_off = "0.01"
             
-            hmmfile = "../data/hmm/A_domain_232.hmm"
+            hmmfile = "data/hmm/A_domain_232.hmm"
             domain_ab = "A"
             flag = False
             
@@ -108,7 +103,7 @@ def menu():
                 print "Error! \nSomething went wrong, no file was generated!"    
                 flag = False
             
-            hmmfile = "../data/hmm/T_domain_232.hmm"
+            hmmfile = "data/hmm/T_domain_232.hmm"
             domain_ab = "T"
             flag = False
             
@@ -132,7 +127,7 @@ def menu():
                     print "Success! \nFile "+at_output+" generated"
 
 
-                    filenames = [at_output, '../data/glycopeptides/Prediction_Glycopeptide_AT_domain.fasta']
+                    filenames = [at_output, 'data/glycopeptides/A_domains.fasta']
 		    #filenames = [at_output, '../data/glycopeptides/Glycopeptide_AT_domain.fasta']
                     #filenames = [at_output, '../data/glycopeptides/Glycopeptide_Novel_AT_domain.fasta']
 
@@ -155,7 +150,7 @@ def menu():
             if subprocess.check_call('muscle -in ' +fastafile + ' -out ' +output_fastafile, shell=True) == 0:                        
                 print 'Success! MSA performed'
                 print "\nFile "+output_fastafile+" generated"
-                if subprocess.check_call('perl ../src/Fasta2Phylip.pl '+output_fastafile + ' ' +output_fastafile+".phy", shell=True) == 0:       
+                if subprocess.check_call('perl src/Fasta2Phylip.pl '+output_fastafile + ' ' +output_fastafile+".phy", shell=True) == 0:       
                     print "\nFile "+output_fastafile+".phy generated"
             else: 
                 print 'Something went wrong, check your multi-fasta file..'
@@ -166,7 +161,7 @@ def menu():
             align_fasta = raw_input("\n Please provide alignment multi-fasta: ")
             cpu = '4'
             bb = '100'
-            if subprocess.check_call('../external/standard-RAxML-master/raxmlHPC-PTHREADS-AVX -T '+cpu+' -f a -m PROTGAMMAIWAGF -s '+align_fasta+' -p 15000 -x 16000 -#'+bb+' -n RaxML_'+align_fasta, shell=True) == 0:      
+            if subprocess.check_call('external/standard-RAxML-master/raxmlHPC-PTHREADS-AVX -T '+cpu+' -f a -m PROTGAMMAIWAGF -s '+align_fasta+' -p 15000 -x 16000 -#'+bb+' -n RaxML_'+align_fasta, shell=True) == 0:      
                  print 'Success! RaxML performed'
                
         elif ans=="6":
