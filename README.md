@@ -1,12 +1,14 @@
-Glycopeptide antibiotics Preidction
+# Glycopeptide antibiotics Prediction in non-ribosomal peptide-synthetase (NRPS)
 
-Note: In order to run correctly we suggest you to install:
+### Installation
   Python 2.7 (Anaconda package recoomended)
   MUSCLE
   hmmsearch3
   RaxML 8
- 
-Run: python start.py
+
+### Usage
+
+python start.py
 
 The following options will appear:
     Prediction of putative Glycopeptide Biosynthetic Gene Cluster
